@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor ♥</title>
+    <style>
+        :root {
+            --primary-color: #ff85a2;
+            --secondary-color: #ff5252;
+            --accent-color: #ff3366;
+            --background-color: #fff5f7;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.5;
+
+            background-image: url('5.jpg');
+            background-repeat: repeat;
+            /* para que se repita en x e y */
+            background-position: top left;
+            /* opcional */
+            background-size: auto;
+            /* mantiene tamaño original */
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) scale(1.5);
+            }
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .memory {
+            margin-bottom: 1.2rem;
+        }
+
+        .memory-date {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            padding: 0.3rem 0.8rem;
+            display: inline-block;
+            margin-right: 1rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        .memory-content {
+            display: inline-block;
+            font-size: 1rem;
+            vertical-align: middle;
+            max-width: calc(100% - 120px);
+        }
+
+        .memories {
+            margin-bottom: 2rem;
+        }
+
+        .memory {
+            margin-bottom: 1rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px dashed var(--primary-color);
+        }
+
+        .memory:last-child {
+            border-bottom: none;
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .favorite-item {
+            background-color: rgba(255, 133, 162, 0.1);
+            border-left: 5px solid var(--primary-color);
+            padding: 1rem 1.2rem;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .favorite-item:hover {
+            background-color: rgba(255, 133, 162, 0.2);
+        }
+
+        .favorite-item h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .favorite-item p {
+            margin: 0.3rem 0 0;
+            font-size: 0.95rem;
+        }
+
+        .letter {
+            background-color: white;
+            border: 1px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(255, 131, 162, 0.2);
+        }
+
+        .letter h3 {
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        .letter p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .letter .quote {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            user-select: none;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .youtube-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .youtube-button {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(255, 83, 112, 0.3);
+        }
+
+        .youtube-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(255, 83, 112, 0.4);
+        }
+
+        .youtube-button img {
+            height: 24px;
+            margin-right: 8px;
+        }
+
+        .music-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: rgba(255, 133, 162, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .music-player button {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.7rem 1.2rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .music-player h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .music-player button:hover {
+            background-color: var(--accent-color);
+        }
+
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .control-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-button:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .favorites-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .youtube-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .floating-heart {
+            position: fixed;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            animation: floatUp 4s ease-in forwards;
+            pointer-events: none;
+        }
+
+        .closing {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #444;
+            margin: 3rem 0;
+        }
+
+        .closing span {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Para mi amor ♥</h1>
+        <p>Cada día te quiero más</p>
+    </div>
+
+    <div class="container">
+        <div style="
+    text-align: center; 
+    padding: 10px 20px; 
+    font-weight: bold; 
+    font-size: 18px; 
+    color: #222; 
+    background-color: rgba(255, 255, 255, 0.7); 
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+">
+            Espero que esto te guste. Es como algo que abarca mucho y no tiene un tema en específico, bueno, sí, vos.
+        </div>
+        
+        <div class="music-player">
+            <h2>Música para vos 🎶</h2>
+            <audio id="myAudio" loop autoplay>
+                <source src="cancion.mp3" type="audio/mpeg">
+                Tu navegador no soporta audio.
+            </audio>
+            <button onclick="toggleMusic()">⏯️ Reproducir / Pausar</button>
+        </div>
+
+        <div class="section">
+            <h2><u>Historia</u></h2>
+            <div class="memories">
+                <div class="memory">
+                    <div class="memory-date">22/03/2025</div>
+                    <div class="memory-content">El día que te pedí que seas mi novia mientras sonaba "11 y 6" de Fito
+                        Paez</div>
+                </div>
+                <div class="memory">
+                    <div class="memory-date">16/08/2008</div>
+                    <div class="memory-content">El día que llegaste a este mundo para iluminarlo con tu sonrisa</div>
+                </div>
+                <div class="memory">
+                    <div class="memory-date">Los últimos 159 días</div>
+                    <div class="memory-content">Los mejores días de mi vida</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><u>Todo lo que te gusta</u></h2>
+                <div class="favorites-grid">
+                    <div class="favorite-item">
+                        <h3>Tenis</h3>
+                        <p>Tu pasión por el deporte que tanto disfrutas</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Independiente</h3>
+                        <p>Tu amor por el más grande de Avellaneda</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Hello Kitty</h3>
+                        <p>Tu adorable obsesión con este personaje</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Capybara</h3>
+                        <p>Tu cariño por estos animales tan especiales</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Los libros</h3>
+                        <p>Tu fascinación por las historias y palabras</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Escribir</h3>
+                        <p>Tu creatividad que siempre me sorprende</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Las flores</h3>
+                        <p>Tu aprecio por la belleza natural</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>El agua</h3>
+                        <p>Tu conexión con este elemento vital</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>El verano</h3>
+                        <p>Tu temporada favorita llena de sol y calor</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Lomonaco</h3>
+                        <p>Tu interés por esto que forma parte de ti</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>El helado de frutilla</h3>
+                        <p>Tu sabor preferido que tanto disfrutas</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Tu forma de ser</h3>
+                        <p>Lo que más amo de vos</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><u>Tu familia</u></h2>
+                <p>Las personas que te acompañan y te quieren tanto como yo:</p>
+                <ul>
+                    <li><strong>Paola</strong> - Tu mamá, quien te dio la vida</li>
+                    <li><strong>Robert</strong> - Tu papá, tu guía y protector</li>
+                    <li><strong>Simon</strong> - Tu hermano, compañero de aventuras</li>
+                    <li><strong>Clara</strong> - Tu hermana, amiga incondicional</li>
+                    <li><strong>Lucio</strong> - Tu primo, el mas chiquito</li>
+                    <li><strong>Lily</strong> - Tu tia, que es como tu segunda mama</li>
+                </ul>
+            </div>
+
+            <div class="letter">
+                <div class="hearts">♥♥♥</div>
+                <h3><u>Una carta para vos</u></h3>
+                <p>Mi querida amor,
+
+                    Te quiero desear un feliz "cumplemes", sabes perfectamente que desde que entraste a mi vida, todo
+                    cambio para mejor. Cada día a tu lado es una aventura llena
+                    de alegría, risas y momentos que guardo en mi corazón, aun no viendonos todos los dias o una vez a
+                    la semana.
+
+                    Disfruto pasar todo el tiempo que puedo con vos, y quiero que sigamos mejorando.
+
+                    Me encanta cada detalle de vos, tu sonrisa, tu forma de hablar, tu pasión por las cosas que amas, y
+                    sobre todo, tu forma de ser.
+
+                    sos la persona más especial que conoci estos ultimos meses y me siento afortunado de poder compartir
+                    mi tiempo con vos.
+
+                    <span class="quote">Siempre voy a estar a tu lado, en los buenos y malos momentos.</span>
+
+                    Con todo mi amor,
+                    Julian (anda a saber cuando me puse tan filosofo)
+                </p>
+            </div>
+
+            <div class="section">
+                <h2><u>Momentos</u></h2>
+                <p>Nuestras fotografías y recuerdos especiales irán aquí...</p>
+                <div class="photos-placeholder"
+                    style="display: flex; gap: 20px; justify-content: center; padding: 2rem; background-color: rgba(255, 133, 162, 0.1); border-radius: 8px; flex-wrap: wrap;">
+                    <div
+                        style="width: 150px; height: 150px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 5px rgba(0,0,0,0.2);">
+                        <img src="1.png" alt="Foto" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div
+                        style="width: 150px; height: 150px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 5px rgba(0,0,0,0.2);">
+                        <img src="2.jpg" alt="Foto" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div
+                        style="width: 150px; height: 150px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 5px rgba(0,0,0,0.2);">
+                        <img src="3.jpg" alt="Foto" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div
+                        style="width: 150px; height: 150px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 5px rgba(0,0,0,0.2);">
+                        <img src="4a.jpg" alt="Foto" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section">
+                <h2><u>Planes Futuros</u></h2>
+                <p>Los sueños que quiero cumplir contigo:</p>
+                <div class="favorites-grid">
+                    <div class="favorite-item">
+                        <h3>Viajar juntos</h3>
+                        <p>Descubrir nuevos lugares y crear recuerdos inolvidables</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Ver un amanecer</h3>
+                        <p>Contemplar juntos un nuevo día comenzar</p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Que independiente salga campeon y lo veamos en la cancha</h3>
+                        <p>ojala que le hayamos ganado a boca cuando estes leyendo esto
+                            <br> pd: jiji vamos rojo
+                        </p>
+                    </div>
+                    <div class="favorite-item">
+                        <h3>Aprender algo nuevo</h3>
+                        <p>Una actividad que podamos disfrutar juntos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="youtube-links">
+            <a href="https://www.youtube.com/watch?v=-BjZmE2gtdo" class="youtube-button" id="song1">
+                <img
+                    src="https://radiofonica.com/wp-content/uploads/2025/02/Taylor-Swift-Reputation-081824-01-9c2cc19b358f42fbb8ae582b8e12c027.jpg">
+                <span>TU CANCION</span>
+            </a>
+            <a href="https://www.youtube.com/watch?v=JXzSU38zpho" class="youtube-button" id="song2">
+                <img src="https://i.scdn.co/image/ab6761610000e5ebee0456d8afc4c63dff458587">
+                <span>NUESTRA CANCION</span>
+            </a>
+            <a href="https://youtu.be/OWoMlr4bUQ4?si=MrS9MUQRXFsTOA53" class="youtube-button" id="song3">
+                <img
+                    src="https://cdn-images.dzcdn.net/images/cover/2925ac297682cbb772d17040a9055dcb/0x1900-000000-80-0-0.jpg">
+                <span>MI CANCION</span>
+            </a>
+        </div>
+    </div>
+    <script>
+        // Música
+        function toggleMusic() {
+            const audio = document.getElementById('myAudio');
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+
+        // Animación de corazones flotantes
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.textContent = '💖';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = (window.innerHeight - 20) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        setInterval(createHeart, 1000);
+
+        // Fade-in al cargar
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
+    <footer>
+        <p>Con todo mi amor para vos, hoy y siempre ♥</p>
+        <p>Julian - 2025</p>
+    </footer>
+
+
+</body>
+
+</html>
